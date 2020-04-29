@@ -1,58 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { connect } from 'react-redux';
+import SignUpPage from './views/sign_up/index';
+import SignInPage from './views/sign_in/index';
+import Dashboard from './views/dashboard/index';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <Router>
+        <div className="App">
+          <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div className="container">
+              <Link className="navbar-brand" to={"/sign-in"}>ChatOps Events</Link>
+              <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul className="navbar-nav ml-auto">
+                  <li className="nav-item">
+                    <Link className="nav-link" to={"/sign-in"}>Login</Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to={"/sign-up"}>Sign up</Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        
+          <div className="auth-wrapper">
+            <div className="auth-inner">
+              <Switch>
+                <Route exact path='/' component={Dashboard} />
+                <Route path="/sign-in" component={SignInPage}/>
+                <Route path="/sign-up" component={SignUpPage}/>
+              </Switch>
+            </div>
+          </div>
+        </div>
+      </Router>
+    );
+  }
 }
 
-export default App;
+export default connect(null)(App);
